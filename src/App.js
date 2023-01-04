@@ -4,10 +4,12 @@ import {createBrowserRouter, Route, createRoutesFromElements, RouterProvider} fr
 import Home from "./components/home.jsx";
 import About from "./components/about.jsx";
 import Faq from "./components/help/faq.jsx";
-import Contact from "./components/help/contact.jsx";
+import Contact, { contactAction } from "./components/help/contact.jsx";
 import NotFound from "./components/notFound.jsx";
 import Careers, { careersLoaders } from "./components/careers.jsx";
 import CareerDetails, { careerDetailsLoader } from "./components/careerDetails.jsx";
+import CareerError from "./components/CareerError.jsx";
+
 
 //layouts
 import RootLayout from "./components/rootLayout.jsx";
@@ -24,11 +26,11 @@ const router = createBrowserRouter(
 
         <Route path="/help" element={<HelpLayout />}>
           <Route path="faq" element={<Faq />}/>
-          <Route path="contact" element={<Contact />}/>
+          <Route path="contact" element={<Contact />} action={contactAction}/>
         </Route>
 
-        <Route path="careers" element={<CareersLayout />}>
-          <Route index element={<Careers />} loader={careersLoaders}/>
+        <Route path="careers" element={<CareersLayout />} errorElement={<CareerError />}>
+          <Route index element={<Careers />} loader={careersLoaders} />
           <Route path=":id" element={<CareerDetails />} loader={careerDetailsLoader}/>
         </Route>
         
